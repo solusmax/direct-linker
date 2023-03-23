@@ -9,7 +9,7 @@
 
 ## Как пользоваться
 
-После ссылки `https://solusmax.github.io/direct-linker/?link=` вставить ссылку на свой сайт и перейти по получившемуся адресу.
+После ссылки `https://solusmax.github.io/direct-linker/?link=` вставить ссылку на свой файл и перейти по получившемуся адресу.
 
 Например, [`https://solusmax.github.io/direct-linker/?link=https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0`](https://solusmax.github.io/direct-linker/?link=https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0).
 
