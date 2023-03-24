@@ -15,5 +15,5 @@
 
 Сервис создавался для использования в качествешортката в адресной строке браузера Google Chrome:
 
-![](https://dl.dropboxusercontent.com/s/e90zq4arcu0dxj1/screen-01.png)
+![](https://dl.dropboxusercontent.com/s/e90zq4arcu0dxj1/screen-01.png)<br>
 *`chrome://settings/searchEngines`*
