@@ -6,6 +6,8 @@ import {
   isCorrectGoogleDriveLink,
 } from './parse.js';
 
+const outputLinkNode = document.querySelector('.output__link');
+
 const DEFAULT_OUTPUT_LINK = 'https://github.com/solusmax/direct-linker';
 
 let outputLink = DEFAULT_OUTPUT_LINK;
@@ -32,9 +34,15 @@ const updateOutputLink = (link) => {
 
 updateOutputLink(inputLink);
 
+const renderOutputLink = (link) => {
+  outputLinkNode.textContent = link;
+  outputLinkNode.href = link;
+};
+
 const goToLink = (link) => {
   window.location.replace(link);
 };
 
-goToLink(outputLink);
+renderOutputLink(outputLink);
 
+goToLink(outputLink);

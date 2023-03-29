@@ -1,14 +1,21 @@
 'use strict';
 
 const { series, parallel, src, dest, watch } = require('gulp');
+const autoprefixer     = require('autoprefixer');
 const browserSync      = require('browser-sync').create();
+const cssnano          = require('cssnano');
 const del              = require('del');
 const ghPages          = require('gh-pages');
 const gulpIf           = require('gulp-if');
 const gulpWebpack      = require('webpack-stream');
 const htmlmin          = require('gulp-htmlmin');
 const imagemin         = require('gulp-imagemin');
+const magicImporter    = require('node-sass-magic-importer');
 const plumber          = require('gulp-plumber');
+const postcss          = require('gulp-postcss');
+const postcssNormalize = require('postcss-normalize');
+const rename           = require('gulp-rename');
+const sass             = require('gulp-sass')(require('sass'));
 const webpack          = require('webpack');
 
 // **************************** ФАЙЛОВАЯ СТРУКТУРА *****************************
@@ -18,24 +25,29 @@ const BUILD_PATH = './build';
 
 const SrcPaths = {
   HTML: `${SRC_PATH}/html`,
+  SCSS: `${SRC_PATH}/scss`,
   JS: `${SRC_PATH}/js`,
   FAVICON: `${SRC_PATH}/favicon`
 };
 
+const SCSS_ENTRY_POINT = `${SrcPaths.SCSS}/style.scss`;
 const JS_ENTRY_POINT = `./${SrcPaths.JS}/main.js`;
 
 const SrcFiles = {
   HTML: [`${SrcPaths.HTML}/**/*.html`],
+  SCSS: [`${SrcPaths.SCSS}/**/*.scss`],
   JS: [`${SrcPaths.JS}/**/*.js`],
   FAVICON: [`${SrcPaths.FAVICON}/**/*`]
 }
 
 const BuildPaths = {
   HTML: `${BUILD_PATH}`,
+  CSS: `${BUILD_PATH}/css`,
   JS: `${BUILD_PATH}/js`,
   FAVICON: `${BUILD_PATH}`
 };
 
+const CSS_BUNDLE_FILENAME = 'style.min.css';
 const JS_BUNDLE_FILENAME = 'script.min.js';
 
 // ************************* ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ***************************
@@ -86,6 +98,29 @@ const buildHtml = () => {
 }
 
 exports.buildHtml = series(buildHtml);
+
+// CSS
+
+const buildCss = () => {
+  return src(SCSS_ENTRY_POINT, { sourcemaps: !isProductionMode })
+    .pipe(gulpIf(!isProductionMode, plumber()))
+    .pipe(sass({
+      importer: magicImporter()
+    }).on('error', sass.logError))
+    .pipe(postcss([
+      postcssNormalize({
+        forceImport: 'normalize.css'
+      }),
+      autoprefixer()
+    ]))
+    .pipe(gulpIf(isProductionMode, postcss([
+      cssnano()
+    ])))
+    .pipe(rename(CSS_BUNDLE_FILENAME))
+    .pipe(dest(`${BuildPaths.CSS}`, { sourcemaps: '.' }));
+};
+
+exports.buildCss = series(buildCss);
 
 // JS
 
@@ -157,6 +192,11 @@ const startServer = () => {
   );
 
   watch(
+    SrcFiles.SCSS,
+    series(buildCss, reloadPage)
+  );
+
+  watch(
     SrcFiles.JS,
     series(buildJs, reloadPage)
   );
@@ -173,6 +213,7 @@ const buildDev = series(
   clearBuildForlder,
   parallel(
     buildHtml,
+    buildCss,
     buildJs,
     buildFavicon
   )

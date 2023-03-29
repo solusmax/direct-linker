@@ -1,0 +1,8 @@
+// [1] Change the box model to "border-box"
+
+*,
+*::before,
+*::after {
+  // [1]
+  box-sizing: border-box;
+}
