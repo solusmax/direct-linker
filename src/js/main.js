@@ -23,10 +23,12 @@ try {
 }
 
 const updateOutputLink = (link) => {
+  // Dropbox
   if (hasRightHostname(link, 'dropbox.com') && isCorrectDropboxLink(link)) {
     outputLink = getDropboxDirectLink(link);
   }
 
+  // Google Drive
   if (hasRightHostname(link, 'drive.google.com') && isCorrectGoogleDriveLink(link)) {
     outputLink = getGoogleDriveDirectLink(link);
   }
