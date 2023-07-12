@@ -1,8 +1,10 @@
 import {
   getDropboxDirectLink,
+  getDropbox2DirectLink,
   getGoogleDriveDirectLink,
   hasRightHostname,
   isCorrectDropboxLink,
+  isCorrectDropbox2Link,
   isCorrectGoogleDriveLink,
 } from './parse.js';
 
@@ -23,9 +25,14 @@ try {
 }
 
 const updateOutputLink = (link) => {
-  // Dropbox
+  // Dropbox (/s/)
   if (hasRightHostname(link, 'dropbox.com') && isCorrectDropboxLink(link)) {
     outputLink = getDropboxDirectLink(link);
+  }
+
+  // Dropbox (/scl/fi/)
+  if (hasRightHostname(link, 'dropbox.com') && isCorrectDropbox2Link(link)) {
+    outputLink = getDropbox2DirectLink(link);
   }
 
   // Google Drive

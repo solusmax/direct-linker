@@ -4,7 +4,7 @@
 
 На данный момент поддерживаются:
 
-- Dropbox (ссылки вида [`https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0`](https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0))
+- Dropbox (ссылки вида [`https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0`](https://www.dropbox.com/s/9znp3i1s6dz3zii/photo.jpg?dl=0) или [`https://www.dropbox.com/scl/fi/8pitkpwzd2cx9flz2rznr/girl-photo.jpg?rlkey=s1pkpyfgkeds6do3sqgvu4q6w&dl=0`](https://www.dropbox.com/scl/fi/8pitkpwzd2cx9flz2rznr/girl-photo.jpg?rlkey=s1pkpyfgkeds6do3sqgvu4q6w&dl=0))
 - Google Drive (ссылки вида [`https://drive.google.com/file/d/1ERcWwGs0_mskM6Ak77iR21mZlfYOIc16/view?usp=share_link`](https://drive.google.com/file/d/1ERcWwGs0_mskM6Ak77iR21mZlfYOIc16/view?usp=share_link))
 
 ## Как пользоваться
